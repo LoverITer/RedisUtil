@@ -542,19 +542,20 @@ public class RedisUtils {
     }
 
 
-
-   /* private String append(String... s){
-        StringBuilder sb=null;
-        if(Objects.nonNull(s)&&s.length>0) {
-            sb=new StringBuilder();
-            int i = 0;
-            while (i < s.length) {
-                sb.append(s[i] + ",");
-                i++;
-            }
-            return sb.toString().substring(0, sb.length() - 1);
+    /**
+     * 将哈希表 key中域 field 的值设置为 value 。
+     * 如果给定的哈希表并不存在， 那么一个新的哈希表将被创建并执行 HSET 操作。
+     * @param key
+     * @param filed
+     * @param value
+     * @return
+     */
+    public boolean hset(String key,String filed,String value){
+        if(Objects.nonNull(key)&&Objects.nonNull(filed)&& Objects.nonNull(value)){
+            redisTemplate.opsForHash().put(key,filed,value);
+            return true;
         }
-        return null;
-    }*/
+        return false;
+    }
 
 }
