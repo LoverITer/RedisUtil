@@ -1,0 +1,12 @@
+spring:
+  #Redis的有关配置
+  redis:
+    host: 192.168.92.128
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-wait: 200
+        max-idle: 10
+        max-active: 10
+    timeout: 2000
