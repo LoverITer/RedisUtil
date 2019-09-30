@@ -545,17 +545,41 @@ public class RedisUtils {
     /**
      * 将哈希表 key中域 field 的值设置为 value 。
      * 如果给定的哈希表并不存在， 那么一个新的哈希表将被创建并执行 HSET 操作。
+     *
      * @param key
      * @param filed
      * @param value
      * @return
      */
-    public boolean hset(String key,String filed,String value){
-        if(Objects.nonNull(key)&&Objects.nonNull(filed)&& Objects.nonNull(value)){
-            redisTemplate.opsForHash().put(key,filed,value);
+    public boolean hSet(String key, String filed, String value) {
+        if (Objects.nonNull(key) && Objects.nonNull(filed) && Objects.nonNull(value)) {
+            redisTemplate.opsForHash().put(key, filed, value);
             return true;
         }
         return false;
+    }
+
+    public boolean hMSet(String key, Map<String, Object> map) {
+        if (Objects.nonNull(key) && Objects.nonNull(map)) {
+            redisTemplate.opsForHash().putAll(key, map);
+            return true;
+        }
+        return false;
+    }
+
+    public String hGet(String key, String filed) {
+        if (Objects.nonNull(key) && Objects.nonNull(filed)) {
+            return (String) redisTemplate.opsForHash().get(key, filed);
+        }
+        return null;
+    }
+
+    public List<Object> hMGet(String key, Object... filed) {
+        if (Objects.nonNull(key) && Objects.nonNull(filed) && filed.length > 0) {
+            List<Object> list = new ArrayList<>(Arrays.asList(filed));
+            return redisTemplate.opsForHash().multiGet(key, list);
+        }
+        return null;
     }
 
 }
